@@ -6,7 +6,7 @@ Documentação do aplicativo desktop e do Stream Deck local
 
 O Automatizador PRO é um aplicativo desktop para Windows que automatiza tarefas repetitivas com sequências de ações configuráveis chamadas macros. Um macro pode ler dados de uma planilha, extrair informações de um documento, tomar decisões, interagir com outros aplicativos e repetir o processo para diferentes registros.
 
-O aplicativo reúne editor visual, motor de execução, ferramentas de dados, inspetor de variáveis, HUD flutuante, ajuda pesquisável e um painel web local para controle pelo celular. O nome anterior do projeto era REA Sistematizador. A interface usa Python e CustomTkinter, com tema escuro roxo, modo claro e ícone de raio.
+O aplicativo reúne editor visual, motor de execução, ferramentas de dados, inspetor de variáveis, HUD flutuante, ajuda pesquisável e um painel web local para controle pelo celular. O nome anterior do projeto era REA Sistematizador. A interface usa Python e CustomTkinter, com tema escuro roxo, modo claro e símbolo de fluxo.
 
 Exemplos de uso
 - Preencher formulários a partir de linhas selecionadas em uma planilha.
