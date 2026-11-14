@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#110d19">
+<title>Stream Deck | Automatizador PRO</title>
+<meta name="description" content="Conecte seu computador e acompanhe a execução de macros na mesma rede.">
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Automatizador PRO">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:title" content="Stream Deck | Automatizador PRO">
+<meta property="og:description" content="Conecte seu computador e acompanhe a execução de macros na mesma rede.">
+<meta property="og:image" content="/assets/social.png">
+<meta property="og:image:alt" content="Automatizador PRO, automação para Windows">
+<link rel="icon" href="/assets/marca.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/stream-deck.css">
+<script type="module" src="/assets/stream-deck.js"></script>
+</head>
+<body>
+<a class="skip" href="#conteudo">Ir para o conteúdo</a>
+<header class="site-header"><div class="shell nav-wrap">
+<a class="brand" href="/"><img src="/assets/marca.svg" width="34" height="34" alt=""><span>Automatizador <b>PRO</b></span></a>
+<a class="lang-switch" href="/en/stream-deck/" hreflang="en-US" lang="en-US" aria-label="English US"><img src="/assets/flag-us.svg" alt=""> EN</a>
+<button class="menu-toggle" type="button" aria-label="Abrir navegação" aria-controls="site-menu" aria-expanded="false" data-menu-open hidden><span class="menu-icon" aria-hidden="true"></span></button>
+</div></header>
+<dialog id="site-menu" class="site-menu" aria-labelledby="menu-title">
+<div class="menu-head"><p id="menu-title" class="eyebrow">NAVEGAÇÃO</p><button class="menu-toggle" type="button" aria-label="Fechar navegação" data-menu-close>×</button></div>
+<nav aria-label="Menu principal">
+<a href="/"><span>01</span> Início</a><a href="/guia/"><span>02</span> Como usar</a><a href="/documentacao/"><span>03</span> Documentação</a><a href="/stream-deck/"><span>04</span> Stream Deck <b aria-hidden="true">↗</b></a><a href="/#faq"><span>05</span> Perguntas frequentes</a><a href="/#suporte"><span>06</span> Suporte</a>
+</nav>
+<div class="menu-legal"><a href="/privacidade/">Privacidade</a><a href="/lgpd/">LGPD</a><a href="/termos/">Termos de uso</a></div>
+</dialog>
+<main id="conteudo" class="shell"><div class="page-intro centered"><p class="eyebrow">CONTROLE LOCAL</p><h1>Stream Deck</h1><p class="lead">Acompanhe os macros do seu PC pelo celular na mesma rede.</p><div class="actions"><a class="button primary" id="deck-cta" href="#conectar">Conectar ao meu computador</a></div></div>
+<section class="section split deck-section" id="conectar">
+<div><p class="eyebrow">CONEXÃO COM O PC</p><h2>Controle pela rede local.</h2><ol class="connection-list"><li>No Windows, abra <strong>Configurações → Celular</strong>. Em <strong>Domínio HTTPS do site</strong>, informe <code id="site-origin">o domínio desta página</code> e ligue o painel.</li><li>Conecte o celular e o PC à mesma rede.</li><li>Informe o endereço e o PIN exibidos no app. Permita o acesso à rede local se o navegador solicitar.</li></ol><p><a href="/documentacao/#capitulo-9">Consultar o manual do Stream Deck</a></p></div>
+<div id="pair" class="panel card connect-card">
+<h2>Conectar ao computador</h2>
+<p class="muted">Use o endereço e o PIN exibidos no Windows. No celular, escolha o IP da rede do PC.</p>
+<form id="connect" hidden>
+<label for="address">Endereço e porta do painel no PC</label>
+<input id="address" inputmode="url" placeholder="http://123.456.7.89:1011" autocomplete="off" spellcheck="false" aria-describedby="address-example" required>
+<p class="muted" id="address-example">Modelo fictício. Use o endereço e a porta que aparecem no seu app.</p>
+<label for="code">PIN de seis dígitos</label>
+<input id="code" type="password" inputmode="numeric" pattern="[0-9]{6}" maxlength="6" autocomplete="off" required>
+<div class="actions"><button class="button primary" id="pair-button" type="submit">Conectar</button></div>
+</form>
+<p id="pair-message" role="status"></p>
+<noscript><p>Ative o JavaScript para conectar nesta página.</p></noscript>
+<details class="contact-help"><summary>O painel local ainda não abre?</summary><p>Confira se o painel está ligado, se o domínio autorizado no app corresponde ao desta página e se o navegador permitiu acesso à rede local. Redes de convidados podem isolar os dispositivos.</p></details>
+</div></section>
+<section id="live-deck" class="section" aria-label="Painel de operação" hidden>
+<div class="connection-bar"><strong id="computer-name"></strong><p id="connection" role="status" tabindex="-1"></p><button id="disconnect" class="button secondary" type="button">Desconectar</button></div>
+<div id="dashboard" hidden>
+ <p id="message" role="status"></p>
+ <section id="run" class="panel" hidden aria-labelledby="run-title">
+  <div class="run-head">
+   <div class="run-title"><h2 id="run-title"></h2><p id="run-name"></p><p id="current-step" class="hint" hidden></p></div>
+   <button type="button" id="stop" class="stop" hidden><svg aria-hidden="true" width="17" height="17"><use href="/assets/controls.svg#stop"></use></svg> Parar execução</button>
+  </div>
+  <details id="run-details" hidden><summary>Ver etapas</summary><ul id="run-steps" class="step-list"></ul></details>
+ </section>
+ <section aria-labelledby="macros-title">
+  <div class="section-head"><h2 id="macros-title">Macros</h2><input type="search" id="search" aria-label="Buscar macro por nome" placeholder="Buscar macro…"></div>
+  <p id="empty" class="hint" hidden></p>
+  <div id="deck"></div>
+ </section>
+</div></section>
+</main>
+<footer class="site-footer"><div class="shell footer-wrap"><a class="brand" href="/"><img src="/assets/marca.svg" width="30" height="30" alt=""><span>Automatizador <b>PRO</b></span></a><nav aria-label="Links do rodapé"><a href="/guia/">Guia</a><a href="/documentacao/">Documentação</a><a href="/stream-deck/">Stream Deck</a><a href="/privacidade/">Privacidade</a><a href="/lgpd/">LGPD</a><a href="/termos/">Termos de uso</a></nav></div></footer>
+</body>
+</html>

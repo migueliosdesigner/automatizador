@@ -1,0 +1,175 @@
+AUTOMATIZADOR PRO
+Documentação do aplicativo desktop e do Stream Deck local
+=========================================================
+
+1. O QUE É
+
+O Automatizador PRO é um aplicativo desktop para Windows que automatiza tarefas repetitivas com sequências de ações configuráveis chamadas macros. Um macro pode ler dados de uma planilha, extrair informações de um documento, tomar decisões, interagir com outros aplicativos e repetir o processo para diferentes registros.
+
+O aplicativo reúne editor visual, motor de execução, ferramentas de dados, inspetor de variáveis, HUD flutuante, ajuda pesquisável e um painel web local para controle pelo celular. O nome anterior do projeto era REA Sistematizador. A interface usa Python e CustomTkinter, com tema escuro roxo, modo claro e ícone de raio.
+
+Exemplos de uso
+- Preencher formulários a partir de linhas selecionadas em uma planilha.
+- Consultar um cadastro, localizar uma imagem na tela e decidir qual grupo de ações executar.
+- Ler faturas em PDF, extrair campos e preparar dados para conferência ou digitação.
+- Buscar um código em uma segunda tabela para complementar os dados da linha atual.
+- Extrair e-mails, telefones, códigos postais ou valores de um texto com Regex.
+
+2. COMO COMEÇAR
+
+Para executar a versão de desenvolvimento no Windows, instale as dependências listadas em requirements.txt e execute python main.py. Para OCR, instale também o Tesseract e os idiomas necessários. Informe o executável em Configurações se ele não for encontrado automaticamente.
+
+1. Crie uma automação e abra o catálogo em Nova ação.
+2. Escolha uma ação, preencha os campos e salve. Continue adicionando as etapas na ordem desejada.
+3. Se houver dados tabulares, abra Planilha do macro, escolha o arquivo e marque as linhas. Use Salvar no macro.
+4. Prepare o aplicativo de destino. Use Testar ação com dados de exemplo para conferir o comportamento. Esse teste pode executar cliques, digitação ou outras ações reais.
+5. Execute pelo botão da barra ou pelo atalho F9. Acompanhe a atividade no editor, no HUD ou no Stream Deck.
+6. Use Pausar para suspender o fluxo, Retomar para continuar ou F10 para solicitar a parada.
+
+3. EDITOR, PROJETOS E INTERFACE
+
+O menu lateral reúne automações e comandos de criação, renomeação, exclusão, importação e exportação. O editor organiza ações em cartões numerados, incluindo ações internas de grupos, condições e repetições. A busca filtra o fluxo, e a lista é paginada em até 20 cartões por página.
+
+O catálogo organiza ações por categoria e aceita busca por nomes e termos relacionados. A estrela marca favoritos. Os filtros incluem Favoritas e Recentes. Nos cartões, o menu de contexto dá acesso a testar, editar, duplicar, comentar, inserir abaixo, mover, ativar ou desativar e excluir. Grupos e blocos compatíveis podem ser expandidos, recolhidos e receber novas ações internas.
+
+Clique em um cartão para selecioná-lo. O contorno laranja indica seleção. Um duplo clique abre a edição. Arraste para reordenar; a linha de inserção indica se a ação vai entrar acima ou abaixo do alvo. A ação ativa recebe o selo Executando. Comentários são exibidos nos cartões. A edição oferece histórico de desfazer e refazer.
+
+Cartões de imagem podem exibir miniaturas ampliáveis, e o de pixel mostra a cor de referência e a posição. Ações de mouse com coordenadas fixas podem exibir na tela o ponto ou trajeto previsto. Essas prévias visuais são distintas de Testar ação, que pode atuar no sistema de destino.
+
+As automações são salvas localmente. A importação e a exportação de projetos usam JSON. O JSON registra as definições dos macros e suas referências. Imagens, PDFs, planilhas, caminhos locais e vínculos armazenados nas configurações precisam ser considerados separadamente ao levar o fluxo para outro computador.
+
+4. EXECUÇÃO E MONITORAMENTO
+
+A execução ocorre em segundo plano enquanto o aplicativo mostra ação atual, tempo, progresso e mensagens. É possível escolher velocidade, quantidade de ciclos ou repetição contínua. Quando uma planilha está vinculada, a seleção de registros guia o processamento. Blocos de repetição têm regras próprias para lidar com a linha atual.
+
+O monitor principal exibe tempo e etapa do fluxo. A barra representa a posição na lista de ações e pode voltar ao início de um ciclo. Os avisos do editor mostram resultados e erros. O log registra acontecimentos da execução.
+
+O HUD flutuante é opcional e fica sobre outras janelas durante a execução. Pode ser arrastado ou recolhido. Exibe estado, tempo ativo e ação atual, com botões para pausar, retomar, parar e abrir o inspetor. Em execução contínua, a interface indica esse modo.
+
+O inspetor de variáveis permite buscar nomes e acompanhar dados da linha, valores internos, contadores e resultados produzidos pelas ações. Abra-o antes ou durante o macro. O painel atualiza o retrato dos valores à medida que as ações são processadas.
+
+5. CATÁLOGO DE AÇÕES
+
+Interação com o Windows
+- Clique do mouse (click). Faz clique esquerdo, direito ou duplo em coordenadas definidas ou na posição atual.
+- Arrastar e soltar (drag_drop). Pressiona o botão do mouse, move do ponto inicial ao final e solta.
+- Mover mouse (mouse_move). Move o cursor entre posições sem clicar.
+- Inserir texto (type). Resolve variáveis no texto. Digitação humana envia caracteres com pausas. Cola rápida copia o resultado para a área de transferência e usa Ctrl+V.
+- Pressionar teclas (key_press). Aceita teclas juntas, como Ctrl+C ou X+Y+Z, e passos separados por vírgula. Inclui captura de combinações, repetição, intervalo e modos para pressionar, segurar ou soltar.
+- Copiar (copy). Com texto definido, coloca o resultado na área de transferência. Com o campo vazio, envia Ctrl+C ao aplicativo em foco.
+- Colar (paste). Usa Ctrl+V com o conteúdo existente da área de transferência ou com um texto configurado.
+- Manipular janela (window_control). Foca, maximiza, minimiza ou fecha uma janela identificada por título, padrão de título ou nome de executável. Um alvo ambíguo exige um identificador mais específico.
+
+Visão
+- Detectar imagem (image_click). Busca uma imagem na tela inteira ou numa região configurada. Pode clicar no alvo encontrado e permite escolher o comportamento quando a imagem não aparece no tempo informado.
+- Esperar pixel (wait_pixel). Compara a cor de um ponto com o valor configurado, respeitando precisão e tempo limite. Pode clicar ao encontrar a cor ou aplicar o fluxo de falha.
+- Extrair texto por OCR (ocr_text). Lê uma região da tela ou uma imagem em arquivo usando Tesseract. Produz texto e uma variável adicional de confiança.
+
+Fluxo
+- Se imagem (if_image). Executa as ações internas quando a imagem é encontrada na verificação. É uma condição visual distinta da ação Detectar imagem.
+- Se expressão (if_expression). Avalia uma expressão e executa o bloco se o resultado for verdadeiro.
+- Senão (else). Executa as ações internas quando a condição imediatamente anterior, no mesmo nível, for falsa.
+- Grupo (group). Organiza e executa um conjunto de ações como um bloco.
+- Repetição (repeat_block). Executa as ações internas um número definido de vezes. Para planilhas, oferece modo automático, avanço pelas linhas selecionadas ou repetição da mesma linha.
+- Aguardar (delay). Aguarda um tempo fixo ou um intervalo variável, como 1-3 segundos.
+
+Transformação e dados
+- Expressão e variável (expression). Avalia uma expressão de texto, número, data ou lógica e guarda o resultado em uma variável.
+- Cálculo (math_op). Executa uma expressão numérica e guarda o resultado. Mantém compatibilidade com cálculos de macros anteriores.
+- Transformar texto (text_op). Mantém apenas números, remove espaços excedentes, muda maiúsculas e minúsculas, substitui trechos ou extrai ocorrências por Regex.
+- Buscar na base selecionada (vlookup). Procura um valor numa coluna da planilha vinculada e guarda o campo de saída do primeiro registro correspondente.
+- Cruzar tabelas (table_cross). Busca uma chave em uma tabela auxiliar XLSX, CSV ou XLS e guarda colunas de saída em variáveis. Permite definir cabeçalho, aba do XLSX e comportamento para chaves ausentes ou duplicadas.
+- Extrair texto de PDF (pdf_text). Lê o texto pesquisável de um PDF em segundo plano e guarda em uma variável. Aceita seleção de páginas.
+- Ler fatura ou recibo (invoice_read). Procura total, NIF e data de emissão e grava cada campo na variável configurada. Pode parar ou retornar campos vazios quando os valores não forem encontrados ou estiverem ambíguos.
+
+Utilitários
+- Sinal sonoro (beep). Toca um aviso discreto conforme as configurações de áudio.
+- Modo humano (humanizer). Configura os intervalos da digitação, atraso de clique e suavização do movimento. O efeito se aplica às ações seguintes conforme a configuração.
+
+Compatibilidade com projetos antigos
+- O runner e o editor podem abrir entradas legadas de trajeto do mouse (mouse_path), estado de tecla (key_state), botão do mouse (mouse_button) e rolagem (scroll).
+- A captura de uma combinação dentro de Pressionar teclas está disponível. O gravador geral de macros foi retirado do catálogo atual.
+
+6. VARIÁVEIS, EXPRESSÕES E REGEX
+
+Use Inserir dado ou Inserir variável para escolher um campo de planilha ou um resultado disponível. A sintaxe recomendada é ${Nome}. Nos campos compatíveis, a prévia de texto usa a primeira linha selecionada como exemplo. Resultados gerados em execução dependem de a ação que os produz ter rodado.
+
+Exemplos
+- Olá, ${Nome}. Resultado esperado com Nome igual a Ana: Olá, Ana.
+- ${counter} fornece o número do ciclo ou da volta do bloco atual.
+- ${counter:5} começa a contagem em 5.
+- ${hoje}, ${hoje+1} e ${hora} fornecem data, deslocamento de data e horário.
+- ${2:Nome} acessa a segunda posição da seleção da planilha, com índice iniciando em 1. Esse formato exige o cifrão.
+- ${fatura_total} pode ser preenchida por Ler fatura ou recibo.
+
+O avaliador de expressões aceita variáveis, números, textos, listas e condições com operações permitidas. Exemplos: arredondar(numero(${Valor}) * 0.9, 2), se(vazio(${Nome}), "Sem nome", ${Nome}), contem(${Texto}, "protocolo", falso) e dias(${Inicio}, ${Fim}). Inclui conversão numérica, funções de texto, comparação, operações lógicas, soma, média, mínimo e máximo. Não executa scripts Python arbitrários. Em muitos campos de texto, referências desconhecidas podem ficar literais. Confira nomes e resultados antes de executar sobre dados reais.
+
+Para Regex, abra Transformar texto e escolha Extrair por padrão. Use um modelo ou digite um padrão Python. Os modelos cobrem e-mails, telefones de Portugal, códigos postais portugueses e valores em euros. O teste permite conferir o resultado. Pode retornar só a primeira ocorrência ou todas, uma por linha. Padrões personalizados têm limite de execução para reduzir o risco de travar o macro.
+
+7. PLANILHAS E CRUZAMENTO DE DADOS
+
+O aplicativo abre XLSX, CSV e XLS legado. É possível configurar aba e cabeçalho conforme o formato, buscar e filtrar linhas, marcar registros individualmente ou em lote e salvar o vínculo com o macro. A prévia é paginada. Ordenar a visualização não muda a ordem original dos registros no processamento.
+
+- Campos vazios. Configure por coluna para manter, preencher com um padrão, usar uma alternativa, pular uma ação dependente, ignorar, revisar ou parar um registro. Zero e falso são dados válidos.
+- Tipos. Use texto para códigos e zeros à esquerda. Configure conversão explícita para números, moeda ou datas quando necessário.
+- Ferramentas. Analise todos os registros, o resultado de um filtro ou as linhas marcadas. Existem operações de agregação, busca, identificação de duplicados, colunas calculadas e exportação.
+- Fórmulas do Excel. O app lê o resultado armazenado no XLSX. Se o arquivo tiver fórmula sem resultado atualizado, recalcule e salve no Excel ou programa compatível antes de processar.
+- Seleção salva. O vínculo guarda referências ao arquivo e aos registros. Se o arquivo mudar, revise e confirme a seleção novamente. Salvar a seleção vincula dados ao macro; Exportar planilha gera uma cópia separada.
+- Estados. O índice temporário registra informações como pendente, executando, concluído, ignorado, revisar ou falhou. Esses estados são de sessão e não constituem retomada persistente após fechar o aplicativo.
+
+Exemplo de cruzamento: use ${Código} da planilha principal como chave. Procure o código no catálogo auxiliar e grave a coluna Preço em preco_catalogo. Depois use ${preco_catalogo} nas ações seguintes.
+
+8. OCR, PDFs, FATURAS E RECIBOS
+
+OCR é adequado a imagens e regiões da tela. Escolha idioma, modo bloco, linha ou números e variável de saída. A confiança estimada fica em uma variável com sufixo _confianca. Pode-se usar confiança mínima, tratamento de falha e conferência humana. O reconhecimento depende da qualidade da imagem, do idioma instalado e da região capturada.
+
+Extrair texto de PDF usa pdfplumber e lê a camada pesquisável sem abrir uma janela de leitura no destino. O caminho pode ser fixo ou vir de uma variável. Deixe páginas em branco para ler todas ou use um intervalo como 1, 3-5. PDFs digitalizados sem camada textual precisam passar por OCR antes da leitura, ou ter suas páginas tratadas como imagens.
+
+Ler fatura ou recibo procura rótulos de total, NIF e data de emissão. A conferência permite revisar o resultado antes de salvar a ação. O total é apresentado com vírgula decimal, o NIF com dígitos e a data no formato dia/mês/ano. Modelos de documento diferentes podem exigir revisão ou uma extração personalizada com Regex.
+
+9. STREAM DECK LOCAL
+
+No Windows, abra Configurações → Celular. Em Domínio HTTPS do site, informe a origem mostrada na página Stream Deck e ligue o painel. No celular, acesse o site na mesma rede do PC, informe o endereço e o PIN de seis dígitos mostrados no app e permita acesso à rede local quando solicitado. Um novo PIN é gerado a cada ativação.
+
+O painel web tem busca de macros, botão Executar, controle de parada e detalhes das ações. Mostra conexão, execução atual e última execução. Pode exibir estado, tempo e quantidade de execuções por etapa. Na tela estreita, Parar permanece acessível durante uma execução ou preparação. A pausa iniciada no desktop é refletida no painel. A resposta de aceitação de um comando não substitui a confirmação do estado da execução.
+
+Se a conexão cair, o painel identifica os dados como desatualizados e bloqueia comandos até reconectar. O painel é local e vem desligado por padrão. O computador precisa permanecer ligado, com o app e o painel ativos. Acesso fora da rede, login comercial e serviço remoto centralizado não fazem parte do fluxo atual.
+
+10. CONFIGURAÇÕES E ATALHOS
+
+Configurações reúne aparência, áudio, HUD, Tesseract, atalhos, microfone e integrações. Repetição e velocidade ficam na barra superior. O tema Glass usa botões foscos em janela opaca. A opção de fixar janela deixa a interface acima de outras janelas.
+
+Atalhos padrão
+- F9 executar; F10 parar; Ctrl+P pausar ou retomar.
+- Ctrl+Z desfazer; Ctrl+Y refazer; Ctrl+F buscar ações.
+- Ctrl+H abrir ajuda; Ctrl+Alt+S abrir configurações; Ctrl+L abrir planilha; Ctrl+Shift+A abrir catálogo.
+- Ctrl+T testar; Ctrl+E editar; Ctrl+D duplicar; Ctrl+M comentar.
+- Ctrl+N inserir abaixo; Ctrl+Shift+N inserir no bloco; Ctrl+Shift+E expandir ou recolher.
+- Ctrl+↑ e Ctrl+↓ mover; Ctrl+Shift+D ativar ou desativar; Delete ou Ctrl+Delete excluir a ação selecionada.
+- F8 captura coordenada ou pixel em formulários que oferecem esse recurso. Enter salva e Esc fecha nos diálogos compatíveis. Em campos de texto longo, Ctrl+Enter salva quando o diálogo oferece esse atalho.
+
+11. SUPORTE, PRIVACIDADE E SOLUÇÃO DE PROBLEMAS
+
+Use Ajuda para pesquisar exemplos e instruções no app. Suporte por e-mail: mechylcontato505@gmail.com. Ao relatar um problema, informe a versão do Windows, etapa, ação, mensagem de erro e forma de reproduzir. Oculte PINs, senhas, dados de clientes e documentos sensíveis.
+
+Os macros e as configurações ficam em arquivos locais. O fluxo de OCR, PDFs e planilhas descrito acima processa arquivos no computador. O Stream Deck transmite comandos e estados na rede local. Use uma rede confiável, pois o painel local utiliza HTTP. Evite compartilhar links de acesso e desligue o painel quando terminar de usá-lo.
+
+- O celular não conecta. Confira se o painel está ligado, se o endereço é o que aparece no app e se a rede permite comunicação entre dispositivos. Teste Abrir no navegador deste PC. Redes de convidados podem isolar dispositivos.
+- A imagem não aparece. Confira referência, região, zoom, escala de tela e aplicativo visível. Teste a captura e recadastre a imagem se o alvo mudou.
+- O OCR não lê. Confira o executável e o idioma, reduza a área de captura e use imagem nítida.
+- Os dados não aparecem nas variáveis. Confirme a seleção da planilha, o nome da coluna e se a ação que produz o resultado já rodou.
+- O macro funciona em um PC e falha em outro. Confira coordenadas, escala, monitores, permissões, foco, arquivos referenciados e versões dos aplicativos de destino.
+
+12. QUADRO, VISÃO E INTEGRAÇÕES
+
+Quadro e subfluxos
+Alterne entre Lista e Quadro ao lado do nome da macro. Use a rodinha para aproximar, o botão do meio para mover e Enquadrar para ver tudo. Em + Fluxo, crie um subfluxo e chame-o com Executar subfluxo, por exemplo dentro de Se imagem. Os cabos representam a estrutura da Lista. Mover um nó muda a posição visual; cabos livres e trilhas paralelas ainda não estão disponíveis.
+
+Visão e contagem
+Carregue uma referência ou cole um recorte com Ctrl+V. Restrinja a região e use Testar busca para verificar a similaridade. Contar Imagens aceita tela inteira, monitor ou região e grava um inteiro, inclusive zero. Use ${qtd_encontrada} > 0 em Se variável ou informe a variável no campo Repetições.
+
+Copiloto, IA e ditado
+Em Configurações → Copiloto, selecione Gemini, Groq ou OpenRouter, informe a chave e busque modelos. Revise a proposta antes de aplicar. O provedor recebe a conversa e um resumo da estrutura do fluxo. Processar com IA envia também a instrução e os valores usados nela e guarda a resposta; o sufixo _erro permite tratar falhas quando a ação está configurada para continuar. Em Configurações → Microfone, selecione a entrada e teste o sinal antes de usar Ditar. A transcrição usa o reconhecimento de fala do Windows.
+
+Telegram
+Em Configurações → Telegram, informe o token e o ID do chat privado. Use /exec Nome da macro para iniciar uma macro existente. A ação de aprovação espera até dois minutos. A captura de tela em erros depende de ativação explícita nas configurações.

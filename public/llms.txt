@@ -1,0 +1,17 @@
+# Automatizador PRO
+
+> Aplicativo desktop Windows para criar, testar e executar macros. O site oferece documentação e uma estimador de tempo e guias de automação.
+
+O aplicativo trabalha com planilhas, documentos e janelas. O Stream Deck do aplicativo roda na rede local e permite iniciar, acompanhar e parar macros no computador.
+
+- [Como usar](/guia/)
+- [Perguntas frequentes](/#faq)
+- [Privacidade](/privacidade/)
+- [Suporte](/#suporte)
+
+- [Documentação](/documentacao/)
+- [Direitos na LGPD](/lgpd/)
+- [Termos de uso](/termos/)
+
+- [Contexto completo](/llms-full.txt)
+- [Feed RSS](/feed.xml)
